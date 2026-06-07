@@ -12,7 +12,7 @@
 
 ## ✨ What It Does
 
-This agent automates the entire cold outreach workflow in a **four-stage pipeline** — no manual steps, no spreadsheets, no copy-paste. Just run it and watch.
+This agent automates the entire cold outreach workflow in a **three-stage pipeline** — no manual steps, no spreadsheets, no copy-paste. Just run it and watch.
 
 ```
 python main.py --domain hubspot.com
@@ -41,22 +41,14 @@ That's it. The agent handles everything else.
                                     ▼
                 ┌───────────────────────────────────────┐
                 │  Stage 2: Prospeo                     │
-                │  Find decision-makers at each company │
+                │  Find decision-makers & their emails  │
                 │  Input:  company domains              │
-                │  Output: names + LinkedIn URLs        │
+                │  Output: names, LinkedIn URLs, emails │
                 └───────────────────┬───────────────────┘
                                     │
                                     ▼
                 ┌───────────────────────────────────────┐
-                │  Stage 3: Eazyreach                   │
-                │  Enrich LinkedIn profiles → emails    │
-                │  Input:  LinkedIn profile URLs        │
-                │  Output: verified email addresses     │
-                └───────────────────┬───────────────────┘
-                                    │
-                                    ▼
-                ┌───────────────────────────────────────┐
-                │  Stage 4: Brevo (Sendinblue)          │
+                │  Stage 3: Brevo (Sendinblue)          │
                 │  Deliver personalized cold emails     │
                 │  Input:  contacts + email template    │
                 │  Output: delivery confirmations       │
@@ -113,9 +105,8 @@ Open `.env` and fill in your API keys (see the table below).
 | #  | Service       | Environment Variable | Purpose                          | Get a Key                                    |
 |----|---------------|----------------------|----------------------------------|----------------------------------------------|
 | 1  | **Ocean.io**  | `OCEAN_API_KEY`      | Discover similar companies       | [ocean.io](https://ocean.io)                 |
-| 2  | **Prospeo**   | `PROSPEO_API_KEY`    | Find decision-makers & LinkedIn  | [prospeo.io](https://prospeo.io)             |
-| 3  | **Eazyreach** | `EAZYREACH_API_KEY`  | LinkedIn → email enrichment      | [eazyreach.io](https://eazyreach.io)         |
-| 4  | **Brevo**     | `BREVO_API_KEY`      | Transactional email delivery     | [brevo.com](https://www.brevo.com)           |
+| 2  | **Prospeo**   | `PROSPEO_API_KEY`    | Find decision-makers & emails    | [prospeo.io](https://prospeo.io)             |
+| 3  | **Brevo**     | `BREVO_API_KEY`      | Transactional email delivery     | [brevo.com](https://www.brevo.com)           |
 
 > **Note:** `BREVO_API_KEY` and `SENDER_EMAIL` are **required**. The pipeline will warn you if other keys are missing but will still attempt to run available stages.
 
@@ -167,12 +158,9 @@ subspace-outreach-agent/
 │   ├── orchestrator.py      # PipelineOrchestrator — runs all 4 stages
 │   ├── exporter.py          # ResultExporter — saves JSON output
 │   │
-│   └── stages/
-│       ├── __init__.py
-│       ├── ocean.py         # Stage 1: Ocean.io API client
-│       ├── prospeo.py       # Stage 2: Prospeo API client
-│       ├── eazyreach.py     # Stage 3: Eazyreach API client
-│       └── brevo.py         # Stage 4: Brevo email sender
+│   ├── ocean_stage.py       # Stage 1: Ocean.io API client
+│   ├── prospeo_stage.py     # Stage 2: Prospeo API client
+│   └── brevo_stage.py       # Stage 3: Brevo email sender
 │
 ├── output/                  # Generated results (git-ignored)
 └── logs/                    # Rotating log files (git-ignored)
