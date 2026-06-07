@@ -1,0 +1,63 @@
+# ============================================
+# Subspace Cold Outreach Agent - Git Ignore
+# Created by Vaibhav Sonava
+# ============================================
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---------- Virtual Environments ----------
+venv/
+.venv/
+env/
+ENV/
+
+# ---------- Environment / Secrets ----------
+.env
+# NOTE: .env.example is tracked intentionally
+!.env.example
+
+# ---------- Project Outputs ----------
+output/
+logs/
+
+# ---------- IDE / Editor ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- OS ----------
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ---------- Pytest / Coverage ----------
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# ---------- Mypy ----------
+.mypy_cache/
+dmypy.json
+
+# ---------- Misc ----------
+*.log
+*.bak
+*.tmp
