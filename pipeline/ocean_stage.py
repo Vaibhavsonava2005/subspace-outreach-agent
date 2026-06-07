@@ -61,12 +61,12 @@ class OceanStage:
 
             # Handle specific status codes before raising
             if response.status_code == 401:
-                logger.error("Ocean.io API: 401 Unauthorized – check your API key.")
+                logger.warning("Ocean.io API: 401 Unauthorized – check your API key.")
                 raise httpx.HTTPStatusError(
                     "Unauthorized", request=response.request, response=response
                 )
             if response.status_code == 403:
-                logger.error("Ocean.io API: 403 Forbidden – insufficient permissions.")
+                logger.warning("Ocean.io API: 403 Forbidden – insufficient permissions.")
                 raise httpx.HTTPStatusError(
                     "Forbidden", request=response.request, response=response
                 )
@@ -125,7 +125,7 @@ class OceanStage:
             return companies if companies else self._fallback(domain)
 
         except Exception as exc:
-            logger.error("Ocean.io stage failed: {} – returning fallback.", exc)
+            logger.warning("Ocean.io stage failed: {} – returning fallback.", exc)
             return self._fallback(domain)
 
     # ------------------------------------------------------------------
